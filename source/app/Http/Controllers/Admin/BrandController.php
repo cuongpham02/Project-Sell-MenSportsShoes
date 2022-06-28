@@ -3,15 +3,28 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Brand\CreateBrandRequest;
+use App\Repositories\Admin\Brand\BrandRepository;
 use Illuminate\Http\Request;
-use App\Brand;
-use App\Product;
 use Carbon\Carbon;
-use App\Http\Requests\CreateBrandRequest;
-use App\Http\Requests\EditBrandRequest;
 
 class BrandController extends Controller
 {
+    /**
+     * @var RoleRepository
+     */
+    protected $repository;
+
+    /**
+     * RolesController constructor.
+     *
+     * @param BrandRepository $repository
+     */
+    public function __construct(BrandRepository $repository)
+    {
+        $this->repository = $repository;
+        $this->validator  = $validator;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -34,7 +47,7 @@ class BrandController extends Controller
      */
     public function create()
     {
-        return view('Admin.brand.add_brand');
+        return view('Admin.Brand.create');
     }
 
 
@@ -45,77 +58,80 @@ class BrandController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function validation($request){
-        return $this->validate($request,[
-            'name' => 'required|max:100|unique:brands,name|min:2',
-            'desc' => 'required|max:255',
-        ],
-        [
-            'name.required' => 'Bạn chưa nhập tên Thương Hiệu',
-            'name.unique' => 'Thương Hiệu này đã tồn tại',
-            'desc.required' => 'Bạn chưa nhập Mô Tả',
-        ]);
-    }
     public function store(CreateBrandRequest $request)
     {
-        // $this->validation($request);
-        $time=Carbon::now();
-        // dd($time);
-        $data = $request->all();
-        $data['created_at']=$time;
-        Brand::create($data);
-        return redirect('/Admin/brand/show-all-brand')->with('message','Thêm Thương Hiệu Mới Thành Công');
+
     }
 
-
-    public function show()
-    {
-        //
-    }
-
-
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int $id
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function edit($id)
     {
-        $edit_brand=Brand::find($id);
-        if ($edit_brand) {
-            return view('Admin.brand.edit_brand')->with(compact('edit_brand'));
-        }else{
-            return redirect()->back();
-        }
     }
 
-    public function update(Request $request, $id)
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  RoleUpdateRequest $request
+     * @param  string            $id
+     *
+     * @return Response
+     *
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
+     */
+    public function update()
     {
-        $brand=Brand::findOrfail($id);
-        if ($brand->name==$request->name) {
-            $this->validate($request,[
-            'name' => 'required|max:100',
-            'desc' => 'required|max:255'
-        ],
-        [
-            'name.required' => 'Bạn chưa nhập tên',
-            'desc.required' => 'Bạn chưa nhập Mô tả',
-        ]);
-            $data=$request->all();
-            $brand->update($data);
-            return redirect('/Admin/brand/show-all-brand')->with('message','Update Thương Hiệu Thành Công');
-        }else{
-            $this->validation($request);
-            $data=$request->all();
-            $brand->update($data);
-            return redirect('/Admin/brand/show-all-brand')->with('message','Update Thương Hiệu Thành Công');
-        }
+
     }
 
-    public function destroy($id)
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int $id
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function delete()
     {
-        $brand_delete=Brand::findOrfail($id);
 
-        if (Product::where('brand_id',$id)->get()->toArray()==null) {
-            $brand_delete->delete();
-            return redirect()->back()->with('message','Xóa Thương Hiệu Thành Công');
-        } else {
-             return redirect()->back()->with('message','Không thể xóa Thương Hiệu này');
-        }
+    }
+
+    /**
+     * Display a listing of soft delete.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function listSoftDelete()
+    {
+
+    }
+
+    /**
+     * Restore of soft delete.
+     *
+     * @param  int $id
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function restore($id)
+    {
+
+    }
+
+    /**
+     * Force delete of soft-delete.
+     *
+     * @param  int $id
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function forceDelete($id)
+    {
+
     }
 }

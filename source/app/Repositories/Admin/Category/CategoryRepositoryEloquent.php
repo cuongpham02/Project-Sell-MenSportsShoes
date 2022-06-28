@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories\Category;
+namespace App\Repositories\Admin\Category;
 
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
@@ -44,5 +44,5 @@ class CategoryRepositoryEloquent extends BaseRepository implements CategoryRepos
     {
         $this->pushCriteria(app(RequestCriteria::class));
     }
-    
+
 }

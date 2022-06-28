@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Admin\Brand;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -26,15 +26,6 @@ class CreateBrandRequest extends FormRequest
         return [
             'name' => 'required|unique:brands,name|min:3|max:255',
             'desc' => 'required|min:3|max:255',
-        ];
-    }
-
-    public function messages()
-    {
-        return [
-            'name.required' => 'Bạn chưa nhập Thương Hiệu',
-            'name.unique' => 'Thương Hiệu này đã tồn tại',
-            'desc.required' => 'Bạn chưa nhập Mô Tả',
         ];
     }
 }

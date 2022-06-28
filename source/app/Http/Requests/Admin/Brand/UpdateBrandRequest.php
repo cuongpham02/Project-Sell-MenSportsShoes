@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Admin\Brand;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class EditBrandRequest extends FormRequest
+class UpdateBrandRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class EditBrandRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return false;
     }
 
     /**
@@ -24,16 +24,8 @@ class EditBrandRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|min:3|max:255',
+            'name' => 'required|unique:brands,name,'.$this->id.',id|min:3|max:255',
             'desc' => 'required|min:3|max:255',
-        ];
-    }
-
-    public function messages()
-    {
-        return [
-            'name.required' => 'Bạn chưa nhập Thương Hiệu',
-            'desc.required' => 'Bạn chưa nhập Mô Tả',
         ];
     }
 }

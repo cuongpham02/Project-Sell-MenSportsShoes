@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories\Role;
+namespace App\Repositories\Admin\Role;
 
 use Illuminate\Database\Eloquent\Builder;
 use Prettus\Repository\Eloquent\BaseRepository;
@@ -8,7 +8,7 @@ use Prettus\Repository\Criteria\RequestCriteria;
 use App\Models\Role\Role;
 
 /**
- * Class RoleRepositoryEloquent.
+ * Class RoleRepositoryEloquent.s
  *
  * @package namespace App\Repositories\Role;
  */

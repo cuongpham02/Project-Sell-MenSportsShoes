@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories\Category;
+namespace App\Repositories\Admin\Category;
 
 use Prettus\Repository\Contracts\RepositoryInterface;
 

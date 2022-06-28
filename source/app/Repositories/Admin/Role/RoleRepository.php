@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories\Role;
+namespace App\Repositories\Admin\Role;
 
 use Prettus\Repository\Contracts\RepositoryInterface;
 
